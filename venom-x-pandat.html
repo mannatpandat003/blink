@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENOM X PANDAT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #07080a;
+    --panel: #101319;
+    --border: #1e232b;
+    --text: #edeef0;
+    --muted: #868d97;
+    --venom-a: #8affc2;
+    --venom-b: #7c5cff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow-x:hidden;
+    padding: 24px;
+  }
+
+  /* faint radial field behind everything, no motion */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(560px 360px at 50% 8%, rgba(124,92,255,0.10), transparent 70%),
+      radial-gradient(480px 320px at 82% 78%, rgba(138,255,194,0.06), transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- Ad slot (managed by GBM) ---------- */
+  .ad-slot{
+    position:fixed;
+    top:16px;
+    left:16px;
+    width:160px;
+    height:56px;
+    border:1px dashed rgba(255,255,255,0.16);
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.02);
+    z-index:5;
+  }
+  .ad-slot span{
+    font-size:11px;
+    letter-spacing:0.02em;
+    color: rgba(255,255,255,0.28);
+  }
+
+  @media (max-width: 560px){
+    .ad-slot{
+      width:120px;
+      height:44px;
+      top:10px;
+      left:10px;
+    }
+    .ad-slot span{ font-size:10px; }
+  }
+
+  /* ---------- Hero ---------- */
+  main{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    width:100%;
+    max-width:720px;
+    opacity:0;
+    transform: translateY(14px);
+    animation: rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+  }
+
+  @keyframes rise{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .logo{
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 26px;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 0 40px rgba(124,92,255,0.25);
+  }
+
+  @media (max-width: 560px){
+    .logo{
+      width: 76px;
+      height: 76px;
+      margin-bottom: 18px;
+    }
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size: clamp(2.4rem, 8vw, 5.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin: 0 0 30px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #d7dbe2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 60px rgba(124,92,255,0.18);
+  }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding: 17px 44px;
+    border-radius: 999px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size: 1rem;
+    color: var(--bg);
+    background: linear-gradient(100deg, var(--venom-a), var(--venom-b));
+    text-decoration:none;
+    isolation:isolate;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .cta::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:inherit;
+    background: linear-gradient(100deg, var(--venom-a), var(--venom-b));
+    filter: blur(18px);
+    opacity:0.55;
+    z-index:-1;
+    transition: opacity 0.35s ease, filter 0.35s ease;
+  }
+
+  .cta:hover{
+    transform: translateY(-2px);
+  }
+  .cta:hover::before{
+    opacity:0.85;
+    filter: blur(26px);
+  }
+
+  .cta:focus-visible{
+    outline: 2px solid var(--venom-a);
+    outline-offset: 4px;
+  }
+
+  /* ---------- Reviews ---------- */
+  section.reviews{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:920px;
+    margin-top: 84px;
+    opacity:0;
+    transform: translateY(14px);
+    animation: rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .reviews-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 760px){
+    .reviews-grid{ grid-template-columns: 1fr; }
+    section.reviews{ margin-top: 56px; }
+  }
+
+  .review-card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    text-align:left;
+    transition: border-color 0.3s ease;
+  }
+
+  .review-card:hover{
+    border-color: rgba(138,255,194,0.28);
+  }
+
+  .stars{
+    color: var(--venom-a);
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .review-text{
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #cfd2d8;
+    margin: 0 0 16px 0;
+  }
+
+  .review-name{
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+  <div class="ad-slot" id="gbm-ad-slot" data-managed-by="GBM" data-ad-unit="header-top">
+    <span>Ad space</span>
+  </div>
+
+  <main>
+    <img class="logo" src="pandatlp.jpg" alt="Venom X Pandat logo">
+    <h1>VENOM X PANDAT</h1>
+    <a class="cta" href="https://t.me/+XiNM-6135I81ZTNl" target="_blank" rel="noopener">Join free community</a>
+  </main>
+
+  <section class="reviews">
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">Calls are clear and timed well. Risk levels are always stated up front.</p>
+        <div class="review-name">M. Kessler</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">Consistent structure every day. No noise, just the setups that matter.</p>
+        <div class="review-name">R. Ainsley</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">Transparent track record. Been following the room for three months now.</p>
+        <div class="review-name">Trader_92</div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
